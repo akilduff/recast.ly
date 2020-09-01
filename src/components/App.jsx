@@ -9,13 +9,22 @@ console.log(exampleVideoData);
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {data: exampleVideoData};
+    this.state = {
+      videos: exampleVideoData,
+      currentVideo: exampleVideoData[0]
+    };
   }
   //state set to current video playing
   //on click of search or side video list we want the video we click on to become the video player
 
   //Thinking we need to iterate over the video list
   //that way we pass in and create divs that are only in the list
+
+  handleClick(video) {
+    this.setState({
+      currentVideo: video
+    });
+  }
 
 
   render() {
@@ -28,10 +37,13 @@ class App extends React.Component {
         </nav>
         <div className="row">
           <div className="col-md-7">
-            <div><h5><em><VideoPlayer video={exampleVideoData[0].snippet}/></em></h5></div>
+            <div><h5><em><VideoPlayer video={this.state.currentVideo}/></em></h5></div>
           </div>
           <div className="col-md-5">
-            <div><h5><em><VideoListList/></em></h5></div>
+            <div><h5><em><VideoList
+              videos={this.state.videos}
+              handleClick={this.handleClick.bind(this)}
+            /></em></h5></div>
           </div>
         </div>
       </div>
@@ -39,13 +51,7 @@ class App extends React.Component {
   }
 }
 
-let VideoListList = (props) => (
-  <ul>
-    {props.exampleVideoData.map((specificVideoData) =>
-      <VideoList videos={specificVideoData} />
-    )}
-  </ul>
-);
+
 
 
 // let GroceryList = (props) => (

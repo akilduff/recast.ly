@@ -2,15 +2,19 @@ import VideoListEntry from './VideoListEntry.js';
 // import exampleVideoData from '../../src/data/exampleVideoData.js';
 // var data = exampleVideoData;
 
-var VideoList = (props) => (
-
-
+var VideoList = ({videos, handleClick}) => (
   <div className="video-list">
-    <div><h5><em><VideoListEntry video={props.videos.snippet}/></em></h5></div>
-    {/* <div><h5><em><VideoListEntry video={props.videos[1].snippet}/></em></h5></div>
-    <div><h5><em><VideoListEntry video={props.videos[2].snippet}/></em></h5></div>
-    <div><h5><em><VideoListEntry video={props.videos[3].snippet}/></em></h5></div>
-    <div><h5><em><VideoListEntry video={props.videos[4].snippet}/></em></h5></div> */}
+    {videos.map((video) => (
+
+      <VideoListEntry
+        video={video}
+        key={video.id.videoId}
+        handleClick={handleClick}
+      />
+
+    )
+    )}
+
   </div>
 );
 

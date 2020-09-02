@@ -14,11 +14,25 @@ class App extends React.Component {
       currentVideo: exampleVideoData[0]
     };
   }
-  //state set to current video playing
-  //on click of search or side video list we want the video we click on to become the video player
 
-  //Thinking we need to iterate over the video list
-  //that way we pass in and create divs that are only in the list
+  componentDidMount() {
+    this.getYouTubeVideos('offroad cars');
+  }
+
+  getYouTubeVideos(query) {
+    let options = {
+      key: this.props.API_KEY,
+      query: query
+    };
+    this.props.searchYouTube(options, (videos) => {
+      this.setState({
+        videos: videos,
+        currentVideo: videos[0]
+      });
+    });
+  }
+
+
 
   handleClick(video) {
     this.setState({
@@ -32,7 +46,7 @@ class App extends React.Component {
       <div>
         <nav className="navbar">
           <div className="col-md-6 offset-md-3">
-            <div><h5><em>{<Search />}</em></h5></div>
+            <div><h5><em>{<Search handleSearchInput={this.getYouTubeVideos.bind(this)}/>}</em></h5></div>
           </div>
         </nav>
         <div className="row">
@@ -51,39 +65,6 @@ class App extends React.Component {
   }
 }
 
-
-
-
-// let GroceryList = (props) => (
-//   <ul>
-//     {props.groceries.map(groceries =>
-//       <GroceryItemList groceries={groceries} />
-//       )}
-//   </ul>
-// );
-
-// let VideoList = (props) => (
-//   <ul>
-//     {props.exampleVideoData.map(specificVideoData =>
-//       <VideoList videos={specificVideoData} />
-//       )}
-//   </ul>
-// );
-
-
-
-// let function = () => (
-//   <div>
-//     <h1>My Grocery List</h1>
-//   <GroceryItemList groceries={['Cucumbers', 'Kale', 'Apples']}/>
-//   </div>
-// );
-
-
-
-
-//currentvideo = object
-//videos = is all other videos, eg
 
 // In the ES6 spec, files are "modules" and do not share a top-level scope
 // `var` declarations will only exist globally where explicitly defined
